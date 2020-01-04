@@ -1,0 +1,27 @@
+{
+  "name": "speech-to-command",
+  "version": "0.0.1",
+  "types": "dist/index.d.ts",
+  "description": "Converts an audio blob into a command structure and executes relevant processor with the command structure.",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc --build",
+    "build:watch": "tsc --watch",
+    "test": "jest"
+  },
+  "main": "dist/index.js",
+  "author": "İzer Özlü",
+  "license": "ISC",
+  "dependencies": {
+    "core-js": "^3.4.3",
+    "recordrtc": "^5.5.8"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.25",
+    "@types/node": "^12.12.17",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
+    "tslib": "^1.10.0",
+    "typescript": "~3.5.3"
+  }
+}
