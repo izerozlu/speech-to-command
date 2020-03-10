@@ -576,6 +576,51 @@ describe('Service: CommandBuilder', () => {
                     expect(commandStructure.marker).toEqual('previous');
                 });
 
+                test('case: prev', () => {
+                    // Setup
+                    const transcript = 'focus travis';
+
+                    // Execution
+                    const commandStructure = commandBuilder.processTranscript(transcript);
+
+                    // Assert
+                    expect(commandStructure.marker).toEqual('previous');
+                });
+
+                test('case: prev', () => {
+                    // Setup
+                    const transcript = 'focus reviews';
+
+                    // Execution
+                    const commandStructure = commandBuilder.processTranscript(transcript);
+
+                    // Assert
+                    expect(commandStructure.marker).toEqual('previous');
+                });
+
+                test('case: prev', () => {
+                    // Setup
+                    const transcript = 'focus previews';
+
+                    // Execution
+                    const commandStructure = commandBuilder.processTranscript(transcript);
+
+                    // Assert
+                    expect(commandStructure.marker).toEqual('previous');
+                });
+
+                test('case: prev', () => {
+                    // Setup
+                    const transcript = 'focus preview';
+
+                    // Execution
+                    const commandStructure = commandBuilder.processTranscript(transcript);
+
+                    // Assert
+                    expect(commandStructure.marker).toEqual('previous');
+                });
+
+
             });
 
         });

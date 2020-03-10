@@ -13,7 +13,7 @@ class CommandBuilder {
 
 	private verbCommandMap = {
 		focus: ['focus'],
-		fill: ['fill', 'fill in', 'fell in', 'filling', 'fill-in', 'villain', 'phil', 'phil in', 'phil\'s', 'phil\'s in'],
+		fill: ['fill', 'fill in', 'fell in', 'filling', 'fillings', 'fill-in', 'villain', 'phil', 'phil in', 'phil\'s', 'phil\'s in'],
 	};
 	private markerCommandMap = {
 		first: ['first', '1', 'i', '1st'],
@@ -22,7 +22,7 @@ class CommandBuilder {
 		fourth: ['fourth', '4', 'iv', '4th', 'farts'],
 		fifth: ['fifth', '5', 'v', '5th', 'fit'],
 		next: ['next'],
-		previous: ['previous', 'prev'],
+		previous: ['previous', 'prev', 'travis', 'reviews', 'previews', 'preview'],
 	};
 	private connectiveCommandMap = {
 		with: ['with', 'which']
