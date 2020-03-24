@@ -20,6 +20,17 @@ describe('Service: CommandBuilder', () => {
 
         describe('should build a command structure', () => {
 
+            test('when a connective is supplied without marker', () => {
+                // Setup
+                const transcript = 'fill with test message';
+
+                // Execution
+                const commandStructure = commandBuilder.processTranscript(transcript);
+
+                // Assert
+                expect(commandStructure).toBeDefined();
+            });
+
             test('with verb, marker, connective and message', () => {
                 // Setup
                 const transcript = 'fill first with test message';
@@ -71,9 +82,23 @@ describe('Service: CommandBuilder', () => {
 
                 // Assert
                 expect(commandStructure.verb).toEqual('focus');
-                expect(commandStructure.marker).toEqual(undefined);
+                expect(commandStructure.marker).toEqual('current');
                 expect(commandStructure.connective).toEqual(undefined);
                 expect(commandStructure.message).toEqual(undefined);
+            });
+
+            test('use the "current" marker as the default', () => {
+                // Setup
+                const transcript = 'fill in with test';
+
+                // Execution
+                const commandStructure = commandBuilder.processTranscript(transcript);
+
+                // Assert
+                expect(commandStructure.verb).toEqual('fill');
+                expect(commandStructure.marker).toEqual('current');
+                expect(commandStructure.connective).toEqual('with');
+                expect(commandStructure.message).toEqual('test');
             });
 
         });
@@ -105,17 +130,6 @@ describe('Service: CommandBuilder', () => {
             test('when a connective is supplied without verb', () => {
                 // Setup
                 const transcript = 'first with message';
-
-                // Execution
-                const commandStructure = commandBuilder.processTranscript(transcript);
-
-                // Assert
-                expect(commandStructure).not.toBeDefined();
-            });
-
-            test('when a connective is supplied without marker', () => {
-                // Setup
-                const transcript = 'fill with test message';
 
                 // Execution
                 const commandStructure = commandBuilder.processTranscript(transcript);
@@ -244,6 +258,16 @@ describe('Service: CommandBuilder', () => {
                     expect(commandStructure.verb).toEqual('fill');
                 });
 
+                test('case: chilling', () => {
+                    const transcript = 'chilling';
+
+                    // Execution
+                    const commandStructure = commandBuilder.processTranscript(transcript);
+
+                    // Assert
+                    expect(commandStructure.verb).toEqual('fill');
+                });
+
             });
 
             describe('verb: focus', () => {
@@ -258,11 +282,46 @@ describe('Service: CommandBuilder', () => {
                     expect(commandStructure.verb).toEqual('focus');
                 });
 
+                test('case: Cuckoo\'s', () => {
+                    const transcript = 'Cuckoo\'s';
+
+                    // Execution
+                    const commandStructure = commandBuilder.processTranscript(transcript);
+
+                    // Assert
+                    expect(commandStructure.verb).toEqual('focus');
+                });
+
+                test('case: Koko\'s', () => {
+                    const transcript = 'Koko\'s';
+
+                    // Execution
+                    const commandStructure = commandBuilder.processTranscript(transcript);
+
+                    // Assert
+                    expect(commandStructure.verb).toEqual('focus');
+                });
+
             });
 
         });
 
         describe('should detect markers', () => {
+
+            describe('marker: current', () => {
+
+                test('case: current', () => {
+                    // Setup
+                    const transcript = 'focus current';
+
+                    // Execution
+                    const commandStructure = commandBuilder.processTranscript(transcript);
+
+                    // Assert
+                    expect(commandStructure.marker).toEqual('current');
+                });
+
+            });
 
             describe('marker: first', () => {
 
@@ -745,6 +804,18 @@ describe('Service: CommandBuilder', () => {
                     expect(commandStructure.message).toEqual('next message');
                 });
 
+                test('case: current message', () => {
+                    // Setup
+                    const transcript = 'fill current with current message';
+
+                    // Execution
+                    const commandStructure = commandBuilder.processTranscript(transcript);
+
+                    // Assert
+                    expect(commandStructure.marker).toEqual('current');
+                    expect(commandStructure.message).toEqual('current message');
+                });
+
             });
 
             describe('case: messages with input names in it', () => {
@@ -790,6 +861,38 @@ describe('Service: CommandBuilder', () => {
                     expect(commandStructure.message).toEqual('with message');
                 });
 
+            });
+
+        });
+
+        describe('should not detect words before connectives', () => {
+
+            test('word: in', () => {
+                // Setup
+                const transcript = 'fill in first with some message';
+
+                // Execution
+                const commandStructure = commandBuilder.processTranscript(transcript);
+
+                // Assert
+                expect(commandStructure.verb).toEqual('fill');
+                expect(commandStructure.connective).toEqual('with');
+                expect(commandStructure.marker).toEqual('first');
+                expect(commandStructure.message).toEqual('some message');
+            });
+
+            test('words: test words about some explanation', () => {
+                // Setup
+                const transcript = 'fill test words about some explanation next with some message';
+
+                // Execution
+                const commandStructure = commandBuilder.processTranscript(transcript);
+
+                // Assert
+                expect(commandStructure.verb).toEqual('fill');
+                expect(commandStructure.connective).toEqual('with');
+                expect(commandStructure.marker).toEqual('next');
+                expect(commandStructure.message).toEqual('some message');
             });
 
         });

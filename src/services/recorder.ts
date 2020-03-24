@@ -152,7 +152,7 @@ export class Recorder {
             (gatheredAlternatives: string[], recognitionAlternative: GoogleSpeechToText.RecognitionAlternative) => {
                 return [...gatheredAlternatives, recognitionAlternative.transcript];
             }, []);
-        console.log('Alternatives', alternatives);
+        console.info('Alternatives', alternatives);
         const recognitionAlternatives = result.alternatives;
         if (recognitionAlternatives.length === 1) {
             const commandStructure = this.commandBuilder.processTranscript(recognitionAlternatives[0].transcript);
@@ -168,6 +168,21 @@ export class Recorder {
                 }
             } else {
                 throw new Error(ERROR_MESSAGES.INVALID_COMMAND_STRUCTURE);
+            }
+        }
+    }
+
+    public processCustomAlternatives(alternative: string) {
+        const commandStructure = this.commandBuilder.processTranscript(alternative);
+        if (commandStructure) {
+            const {verb, marker, connective, message} = commandStructure;
+            const verbProcessor: VerbProcessor = this.commandProcessor[verb];
+            if (marker && message) {
+                verbProcessor[marker](message);
+            } else if (marker) {
+                verbProcessor[marker](message);
+            } else {
+                (verbProcessor as Processor)(message);
             }
         }
     }
