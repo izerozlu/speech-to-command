@@ -304,6 +304,20 @@ describe('Service: CommandBuilder', () => {
 
             });
 
+            describe('verb: clear', () => {
+
+                test('case: clear', () => {
+                    const transcript = 'clear';
+
+                    // Execution
+                    const commandStructure = commandBuilder.processTranscript(transcript);
+
+                    // Assert
+                    expect(commandStructure.verb).toEqual('clear');
+                });
+
+            });
+
         });
 
         describe('should detect markers', () => {

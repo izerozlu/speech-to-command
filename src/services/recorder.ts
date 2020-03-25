@@ -45,6 +45,7 @@ type VerbProcessor = FocusProcessor | FillProcessor | Processor;
 export interface CommandProcessor {
     focus: Partial<FocusProcessor> & Partial<InputProcessors>;
     fill?: Partial<FillProcessor> & Partial<InputProcessors>;
+    clear?: Partial<FillProcessor> & Partial<InputProcessors>;
 }
 
 interface RecorderOptions {
