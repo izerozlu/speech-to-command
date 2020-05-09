@@ -14,7 +14,8 @@ class CommandBuilder {
     private verbCommandMap = {
         focus: ['focus', 'cuckoo\'s', 'koko\'s'],
         fill: ['fill', 'fill in', 'fell in', 'filling', 'fillings', 'fill-in', 'villain', 'phil', 'phil in', 'phil\'s', 'phil\'s in', 'chilling'],
-        clear: ['clear']
+        clear: ['clear'],
+        submit: ['submit']
     };
     private markerCommandMap = {
         current: ['current'],
